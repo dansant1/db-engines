@@ -1,19 +1,4 @@
-interface Post {
-    id: string | number,
-    title: string,
-    body: string,
-    category: string,
-    published: boolean,
-}
-
-interface CreatePostInput {
-    id: string | number,
-    title: string,
-    body: string,
-    category: string,
-    published: boolean,
-}
-
+import {Post, CreatePostInput} from '../contracts';
 export class PostService {
 
     static create(): PostService {
