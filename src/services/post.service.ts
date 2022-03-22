@@ -1,4 +1,7 @@
-import {Post, CreatePostInput} from '../contracts';
+import {
+    Post, 
+    CreatePostInput
+} from '../contracts';
 export class PostService {
 
     static create(): PostService {
@@ -7,13 +10,13 @@ export class PostService {
 
     getQuery() {
         return {
-            createPost: this.createPost
+            posts: this.posts,
         }
     }
 
     getMutation() {
         return {
-            getPost: this.getPosts
+            createPost: this.createPost,
         }
     }
 
@@ -26,9 +29,11 @@ export class PostService {
             type Query {
                 posts: [Post]!
             }
+
             type Mutation {
                 createPost(data: CreatePostInput!): Post!
             }
+
             type Post {
                 id: ID!
                 title: String!
@@ -36,6 +41,7 @@ export class PostService {
                 category: String!
                 published: Boolean!
             }
+
             input CreatePostInput {
                 id: ID
                 title: String!
@@ -46,15 +52,24 @@ export class PostService {
         `;
     }
 
-    createPost(data: CreatePostInput): string {
+    createPost({
+        metadata,
+        params,
+    }: {
+        metadata: Record<string, unknown>,
+        params: CreatePostInput,
+    }): string {
         return 'Post created';
     }
 
-    getPosts(): Post[] {
-        console.log("Llegó a getPost")
+    posts({
+        metadata,
+    }: {
+        metadata: Record<string, unknown>,
+    }): Post[] {
         return [{
             id: 2,
-            title: 'hello',
+            title: 'hola',
             body: 'hey',
             category: 'fiction',
             published: true,

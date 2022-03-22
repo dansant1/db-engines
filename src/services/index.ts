@@ -3,15 +3,18 @@ import { PostService } from './post.service';
 const postService = PostService.create();
 
 
-const services_query: unknown[] = [
+const service_query: unknown[] = [
     postService.getQuery()
 ];
-const services_mutation: unknown[] = [
+const service_mutation: unknown[] = [
     postService.getMutation()
+];
+const service_schemas: string[] = [
+    postService.getSchema(),
 ];
 
 export const buidServices = GatewayBuilder.create(
-    services_query,
-    services_mutation,
-    postService.getSchema()
+    service_query,
+    service_mutation,
+    service_schemas,
 );
