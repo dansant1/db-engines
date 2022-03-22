@@ -8,29 +8,29 @@ import {
     Platforms,
     ConfigGraphQL,
 } from 'core-framework';
+import { buidServices } from './services';
 
 const services = {
     resolvers: {
         Query: {
             posts: (_, obj) => {
-               return [{
-                   id: 2,
-                   title: 'hello',
-                   body: 'hey',
-                   category: 'fiction',
-                   published: true,
-               }];
+                return [{
+                    id: 2,
+                    title: 'hello',
+                    body: 'hey',
+                    category: 'fiction',
+                    published: true,
+                }];
             },
         },
         Mutation: {
             createPost: (_, { data }) => {
-               return 'mutation hello';
+                return 'mutation hello';
             }
         }
     },
     schema: `
         type Query {
-            post(id: ID!): Post!
             posts: [Post]!
         }
         type Mutation {
@@ -58,7 +58,7 @@ server.setPort(9000);
 server.setProtolType(Protocols.HTTP);
 server.setServerType(Platforms.FASTIFY);
 server.setGatewayType(GatewayTypes.GraphQL);
-server.setEntryType(services);
+server.setEntryType(buidServices.buildGraphQL() as ConfigGraphQL);
 server.setConfig({ logger: true });
 
 const app = AppFactory.create(server);
