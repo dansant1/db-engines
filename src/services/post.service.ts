@@ -31,7 +31,11 @@ export class PostService {
         //@ts-ignore
         Logger.warn(metadata.request.body);
         return {
-            message: 'Post Created',
+            id: 2,
+            title: 'hola',
+            body: 'hey',
+            category: 'fiction',
+            published: true,
         };
     }
 }
