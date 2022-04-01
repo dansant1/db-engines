@@ -1,20 +1,16 @@
-import { GatewayBuilder } from '../gateway';
+import {
+    GatewayBuilder, 
+    GatewayTypes, 
+    IRest,
+} from 'core-framework';
 import { PostService } from './post.service';
+
 const postService = PostService.create();
 
-
-const service_query: unknown[] = [
-    postService.getQuery()
-];
-const service_mutation: unknown[] = [
-    postService.getMutation()
-];
-const service_schemas: string[] = [
-    postService.getSchema(),
-];
+const controllers: IRest[] = postService.getControllers();
 
 export const buidServices = GatewayBuilder.create(
-    service_query,
-    service_mutation,
-    service_schemas,
+    GatewayTypes.REST, {
+        controllers,
+    },
 );
