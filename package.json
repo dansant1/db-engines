@@ -9,7 +9,7 @@
     "build": "tsc -p ."
   },
   "dependencies": {
-    "core-framework": "^git@github.com:dansant1/core-framework.git#master",
+    "core-framework": "https://github.com/dansant1/core-framework.git#master",
     "dotenv": "^10.0.0",
     "fastify": "^3.27.4",
     "graphql": "^16.3.0",
