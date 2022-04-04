@@ -5,7 +5,10 @@ import {
 } from 'core-framework';
 import { PostService } from './post.service';
 
-const postService = PostService.create();
+const postService = PostService.create({
+    name: 'db-post',
+    version: '1',
+});
 
 const controllers: IRest[] = postService.getControllers();
 

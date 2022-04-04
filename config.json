@@ -1,0 +1,9 @@
+{
+    "config": [
+        {
+            "ms": "db-post",
+            "version": "1",
+            "active": true
+        }
+    ]
+}

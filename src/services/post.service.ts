@@ -5,10 +5,52 @@ import {
     HttpMethods,
     Logger,
 } from 'core-framework';
+
+import {
+    PostManagerInstance,
+} from '../managers';
+
 export class PostService {
 
-    static create(): PostService {
-        return new PostService();
+    #name: string;
+    #version: string;
+
+    constructor(
+        name: string, 
+        version: string
+    ) {
+        this.setName(name);
+        this.setVersion(version);
+    }
+
+    static create(data: {
+        name: string,
+        version: string,
+    }): PostService {
+        const {
+            name,
+            version,
+        } = data;
+        return new PostService(
+            name, 
+            version
+        );
+    }
+
+    setName(name: string): void {
+        this.#name = name;
+    }
+
+    getName(): string {
+        return this.#name;
+    }
+
+    setVersion(version: string): void {
+        this.#version = version;
+    }
+
+    getVersion(): string {
+        return this.#version;
     }
 
     public getControllers() {
@@ -21,21 +63,22 @@ export class PostService {
         ]
     }
 
-    createPost({
+    public async createPost({
         metadata,
         params,
     }: {
         metadata: Record<string, unknown>,
         params: CreatePostInput,
-    }): Record<string, unknown> {
+    }): Promise<Record<string, unknown>> {
         //@ts-ignore
         Logger.warn(metadata.request.body);
-        return {
-            id: 2,
+        const data = {
             title: 'hola',
             body: 'hey',
             category: 'fiction',
             published: true,
         };
+        await PostManagerInstance.create(data);
+        return data;
     }
 }
