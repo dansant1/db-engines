@@ -57,7 +57,7 @@ export class PostService {
         return [
             {
                 method: HttpMethods.POST,
-                url: '/post',
+                url: '/api/post',
                 handler: this.createPost,
             }
         ]
