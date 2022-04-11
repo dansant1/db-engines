@@ -4,13 +4,13 @@ import {
     IRest,
 } from 'core-framework';
 import { 
-    PostService 
-} from './post.service';
+    ProductService, 
+} from './product.service';
 import {
     HealthcheckService,
 } from './healthcheck.service';
 
-const postService = PostService.create({
+const productService = ProductService.create({
     name: 'db-post',
     version: '1',
 });
@@ -21,7 +21,7 @@ const healthcheckService = HealthcheckService.create({
 })
 
 const controllers: IRest[] = [
-    ...postService.getControllers(), 
+    ...productService.getControllers(), 
     ...healthcheckService.getControllers()
 ];
 

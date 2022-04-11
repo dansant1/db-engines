@@ -1,5 +1,5 @@
 import {
-    PostManager,
-} from './post.manager';
+    ProductManager,
+} from './product.manager';
 
-export const PostManagerInstance = PostManager.create();
+export const ProductManagerInstance = ProductManager.create();

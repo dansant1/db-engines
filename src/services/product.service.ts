@@ -7,10 +7,10 @@ import {
 } from 'core-framework';
 
 import {
-    PostManagerInstance,
+    ProductManagerInstance,
 } from '../managers';
 
-export class PostService {
+export class ProductService {
 
     #name: string;
     #version: string;
@@ -26,12 +26,12 @@ export class PostService {
     static create(data: {
         name: string,
         version: string,
-    }): PostService {
+    }): ProductService {
         const {
             name,
             version,
         } = data;
-        return new PostService(
+        return new ProductService(
             name, 
             version
         );
@@ -57,13 +57,13 @@ export class PostService {
         return [
             {
                 method: HttpMethods.POST,
-                url: 'db/post/create',
-                handler: this.createPost,
+                url: 'db/product/save',
+                handler: this.createProduct,
             }
         ]
     }
 
-    public async createPost({
+    public async createProduct({
         metadata,
         params,
     }: {
@@ -78,7 +78,7 @@ export class PostService {
             category: 'fiction',
             published: true,
         };
-        await PostManagerInstance.create(data);
+        await ProductManagerInstance.create(data);
         return data;
     }
 }
