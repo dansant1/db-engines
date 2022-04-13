@@ -71,13 +71,8 @@ export class ProductService {
         params: CreatePostInput,
     }): Promise<Record<string, unknown>> {
         //@ts-ignore
-        Logger.warn(metadata.request.body);
-        const data = {
-            title: 'hola',
-            body: 'hey',
-            category: 'fiction',
-            published: true,
-        };
+        const data = metadata.request.body;
+        Logger.warn(data);
         await ProductManagerInstance.create(data);
         return data;
     }
