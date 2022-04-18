@@ -8,6 +8,13 @@ export class ProductManager {
         return new ProductManager();
     }
 
+    public async getSkusByCountryId(id: string): Promise<void> {
+        const response = await knex('sku').join('sku_schedule', 'sku.id', 'sku_schedule.sku_id')
+        .where({'sku_schedule.country_id': id})
+        .select('sku.code')
+        return response;
+    }
+
     public async create(data: Record<string, any>): Promise<void> {
         const { product, sku } = data;
         const productCreated = await knex('product')

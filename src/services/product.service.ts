@@ -5,7 +5,9 @@ import {
     HttpMethods,
     Logger,
 } from 'core-framework';
-
+import {
+    Constants
+} from '../shared/constants';
 import {
     ProductManagerInstance,
 } from '../managers';
@@ -16,7 +18,7 @@ export class ProductService {
     #version: string;
 
     constructor(
-        name: string, 
+        name: string,
         version: string
     ) {
         this.setName(name);
@@ -32,7 +34,7 @@ export class ProductService {
             version,
         } = data;
         return new ProductService(
-            name, 
+            name,
             version
         );
     }
@@ -57,8 +59,13 @@ export class ProductService {
         return [
             {
                 method: HttpMethods.POST,
-                url: 'db/product/save',
+                url: '/db/product/save',
                 handler: this.createProduct,
+            },
+            {
+                method: HttpMethods.GET,
+                url: '/db/skusByCountry/:iso',
+                handler: this.getSkusByCountry
             }
         ]
     }
@@ -72,8 +79,18 @@ export class ProductService {
     }): Promise<Record<string, unknown>> {
         //@ts-ignore
         const data = metadata.request.body;
+        console.log(data)
         Logger.warn(data);
         await ProductManagerInstance.create(data);
+        return data;
+    }
+
+    public async getSkusByCountry(
+        metadata: Record<string, any>
+    ) {
+        let params = metadata.metadata.request.params;
+        let id = Constants.countries[params.iso]
+        const data = await ProductManagerInstance.getSkusByCountryId(id);
         return data;
     }
 }
