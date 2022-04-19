@@ -10,6 +10,7 @@ import {
 } from '../shared/constants';
 import {
     ProductManagerInstance,
+    CacheManagerInstance
 } from '../managers';
 
 export class ProductService {
@@ -66,6 +67,16 @@ export class ProductService {
                 method: HttpMethods.GET,
                 url: '/db/skusByCountry/:iso',
                 handler: this.getSkusByCountry
+            },
+            {
+                method: HttpMethods.POST,
+                url: '/db/cache/set',
+                handler: this.setCache
+            },
+            {
+                method: HttpMethods.GET,
+                url: '/db/cache/get/:key',
+                handler: this.getCache
             }
         ]
     }
@@ -85,12 +96,35 @@ export class ProductService {
         return data;
     }
 
-    public async getSkusByCountry(
-        metadata: Record<string, any>
+    public async getSkusByCountry({
+        metadata,
+        params,
+    }: {
+        metadata: Record<string, unknown>,
+        params: CreatePostInput,
+    }) {
+        // let params = metadata.metadata.request.params;
+        // let id = Constants.countries[params.iso]
+        const data = await ProductManagerInstance.getSkusByCountryId('1');
+        return data;
+    }
+
+    public async setCache({ 
+        metadata, 
+        params 
+    }
     ) {
-        let params = metadata.metadata.request.params;
-        let id = Constants.countries[params.iso]
-        const data = await ProductManagerInstance.getSkusByCountryId(id);
+        const body = metadata.request.body;
+        const data = await CacheManagerInstance.set(body);
+        return data;
+    }
+
+    public async getCache({
+        metadata,
+        params
+    }) {
+        const key = metadata.request.params.key;
+        const data = await CacheManagerInstance.get(key)
         return data;
     }
 }

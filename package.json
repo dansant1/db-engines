@@ -12,6 +12,7 @@
     "core-framework": "https://github.com/dansant1/core-framework.git#master",
     "dotenv": "^10.0.0",
     "fastify": "^3.27.4",
+    "ioredis": "^5.0.4",
     "knex": "^1.0.4",
     "mysql": "^2.18.1",
     "ts-node": "^9.1.1",
